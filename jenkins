@@ -3,11 +3,24 @@ stage ('Initialize') {
         def mavenHome  = tool 'maven'
         env.PATH = "${mavenHome}/bin:${env.PATH}"
 }
-stage ('Build') {
-sh "mvn clean install"
+stage ('clone versions') {
+git branch: 'master'
+credentialsId: 'd7534a5a-2da5-4111-87de-8c795e5f6fcd'
+url: 'https://github.com/SivakrishnaDandu/VersionsControl.git'
 }
-stage('Post Build Action'){
-name = "${Param}"
-build job: 'SampleProject', parameters: [[$class: 'StringParameterValue', name: 'Name', value: name]]
+stage ('clone project') {
+git branch: 'master'
+credentialsId: 'd7534a5a-2da5-4111-87de-8c795e5f6fcd'
+url: 'https://github.com/SivakrishnaDandu/my-app.git'
+}
+stage ('Version Increment') {
+sh ''' bash $WORKSPACE/VersionControl/script.sh $WORKSPACE '''
+}
+stage ('Build') {
+sh ''' 
+version=$(cat $WORKSPACE/VersionsControl/verison.properties | awk -F "=" '{print $2}') 
+cd $WORKSPACE/my-app/
+sh "mvn clean install"
+'''
 }
 }
