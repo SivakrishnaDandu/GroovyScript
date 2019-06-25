@@ -5,12 +5,12 @@ stage ('Initialize') {
 }
 stage ('clone versions') {
 git branch: 'master',
-credentialsId: 'd7534a5a-2da5-4111-87de-8c795e5f6fcd',
+credentialsId: '34a8d3f6-1a64-4fc7-a24c-751955eed501',
 url: 'https://github.com/SivakrishnaDandu/VersionsControl.git'
 }
 stage ('clone project') {
 git branch: 'master',
-credentialsId: 'd7534a5a-2da5-4111-87de-8c795e5f6fcd',
+credentialsId: '34a8d3f6-1a64-4fc7-a24c-751955eed501',
 url: 'https://github.com/SivakrishnaDandu/my-app.git'
 }
 stage ('Version Increment') {
