@@ -4,16 +4,18 @@ stage ('Initialize') {
         env.PATH = "${mavenHome}/bin:${env.PATH}"
 }
 stage ('clone versions') {
-dir('VersionControl')
+dir('VersionControl') {
 git branch: 'master',
 credentialsId: '34a8d3f6-1a64-4fc7-a24c-751955eed501',
 url: 'https://github.com/SivakrishnaDandu/VersionsControl.git'
 }
+}
 stage ('clone project') {
-dir('my-app')
+dir('my-app') {
 git branch: 'master',
 credentialsId: '34a8d3f6-1a64-4fc7-a24c-751955eed501',
 url: 'https://github.com/SivakrishnaDandu/my-app.git'
+}
 }
 stage ('Version Increment') {
 sh ''' bash $WORKSPACE/VersionControl/script.sh $WORKSPACE '''
