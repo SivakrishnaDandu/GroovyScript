@@ -23,8 +23,9 @@ sh ''' bash $WORKSPACE/VersionsControl/script.sh $WORKSPACE '''
 stage ('Build') {
 sh ''' 
 version=$(cat $WORKSPACE/VersionsControl/verison.properties | awk -F "=" '{print $2}') 
+sh '''
 cd $WORKSPACE/my-app/
-sh "mvn clean install"
+mvn clean install
 '''
 }
 }
