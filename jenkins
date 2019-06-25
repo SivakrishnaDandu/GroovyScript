@@ -4,7 +4,7 @@ stage ('Initialize') {
         env.PATH = "${mavenHome}/bin:${env.PATH}"
 }
 stage ('clone versions') {
-dir('VersionControl') {
+dir('VersionsControl') {
 git branch: 'master',
 credentialsId: '34a8d3f6-1a64-4fc7-a24c-751955eed501',
 url: 'https://github.com/SivakrishnaDandu/VersionsControl.git'
