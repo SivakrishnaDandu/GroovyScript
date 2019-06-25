@@ -3,13 +3,6 @@ stage ('Initialize') {
         def mavenHome  = tool 'maven'
         env.PATH = "${mavenHome}/bin:${env.PATH}"
 }
-stage ('deleting workspace before') {
-sh '''
-cd $WORKSPACE
-rm -rf * 
-'''
-
-}
 stage ('clone versions') {
 dir('VersionsControl') {
 git branch: 'master',
@@ -25,7 +18,7 @@ url: 'https://github.com/SivakrishnaDandu/my-app.git'
 }
 }
 stage ('Version Increment') {
-sh ''' bash $WORKSPACE/VersionControl/script.sh $WORKSPACE '''
+sh ''' bash $WORKSPACE/VersionsControl/script.sh $WORKSPACE '''
 }
 stage ('Build') {
 sh ''' 
