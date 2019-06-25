@@ -3,6 +3,13 @@ stage ('Initialize') {
         def mavenHome  = tool 'maven'
         env.PATH = "${mavenHome}/bin:${env.PATH}"
 }
+stage ('deleting workspace before') {
+sh '''
+cd $WORKSPACE
+rm -rf * 
+'''
+
+}
 stage ('clone versions') {
 dir('VersionsControl') {
 git branch: 'master',
