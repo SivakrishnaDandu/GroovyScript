@@ -26,4 +26,11 @@ cd $WORKSPACE/my-app/
 mvn clean install
 '''
 }
+stage ('copy to nexus') {
+sh '''
+cd $WORKSPACE/my-app/target/
+mvn deploy:deploy-file -DgroupId=com.mycompany.app -DartifactId=my-app -Dversion=8.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=Repo -Durl=http://52.15.146.59:8081/nexus/content/repositories/Test/ -Dfile=target/my-app-8.0.0.jar
+'''
+}
+
 }
